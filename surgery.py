@@ -88,8 +88,8 @@ class SurgeryDataset(utils.Dataset):
         subset: Subset to load: train or val or predict
         """
         # Add classes. We have only one class to add.
-        self.add_class("surgery", 1, "arm")
-        self.add_class("surgery", 2, "ring")
+        self.add_class("surgery", 1, "adidas")
+        self.add_class("surgery", 2, "apple")
         if hc is True:
             for i in range(1,14):
                 self.add_class("surgery", i, "{}".format(i))
@@ -170,9 +170,9 @@ class SurgeryDataset(utils.Dataset):
         # In the surgery dataset, pictures are labeled with name 'a' and 'r' representing arm and ring.
         for i, p in enumerate(class_names):
         #"name" is the attributes name decided when labeling, etc. 'region_attributes': {name:'a'}
-            if p['name'] == 'a':
+            if p['name'] == 'adidas':
                 class_ids[i] = 1
-            elif p['name'] == 'r':
+            elif p['name'] == 'apple':
                 class_ids[i] = 2
             #assert code here to extend to other labels
         class_ids = class_ids.astype(int)
@@ -215,7 +215,7 @@ class SurgeryDataset(utils.Dataset):
         class_ids = np.zeros([len(info["polygons"])])
         # In the surgery dataset, pictures are labeled with name 'a' and 'r' representing arm and ring.
         for i, p in enumerate(class_names):
-            if p['name'] == 'arm':
+            if p['name'] == 'adidas':
                 class_ids[i] = 14
             elif p['name'] == 'error':
                 pass
@@ -273,7 +273,7 @@ def color_splash(image, mask):
 def detect_and_color_splash(model, image_path=None, video_path=None, out_dir=''):
     assert image_path or video_path
 
-    class_names = ['BG', 'arm', 'ring']
+    class_names = ['BG', 'adidas', 'apple']
 
     # Image or video?
     if image_path:
